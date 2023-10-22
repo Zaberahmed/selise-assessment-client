@@ -1,2 +1,2 @@
 # selise-cricket-client
-live link : <https://selise-cricket-client.netlify.app/>
+live link : <https://cricket-client-assessment.netlify.app/>
