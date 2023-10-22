@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ITeam } from '../interfaces/team.interface';
 import { useNavigate } from 'react-router-dom';
 import TeamFlag from '../components/teamflag';
+import { fetchNextMatchId } from '../services/api';
 
 const TossPage = () => {
 	const navigate = useNavigate();
@@ -15,9 +16,8 @@ const TossPage = () => {
 			setSelectedTeams(JSON.parse(teamSelected));
 		}
 		try {
-			fetch(`${import.meta.env.VITE_BACKEND_URL}/matches`)
-				.then((response) => response.json())
-				.then((data) => setId(data?.length + 1))
+			fetchNextMatchId()
+				.then((nextId) => setId(nextId))
 				.catch((error) => console.error('Error:', error));
 		} catch (error) {
 			console.log('Error', error);

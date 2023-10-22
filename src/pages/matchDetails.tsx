@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IMatch } from '../interfaces/match.interface';
 import Scoreboard from '../components/scoreboard';
+import { fetchMatchDetails } from '../services/api';
 
 const MatchDetailsPage = () => {
 	const id = useParams();
@@ -9,15 +10,12 @@ const MatchDetailsPage = () => {
 	const [match, setMatch] = useState<IMatch>();
 
 	useEffect(() => {
-		const fetchMatchDetails = () => {
-			fetch(`${import.meta.env.VITE_BACKEND_URL}/matches/${id?.id}`)
-				.then((response) => response.json())
+		if (id?.id) {
+			fetchMatchDetails(id?.id)
 				.then((data) => setMatch(data))
 				.catch((error) => console.error('Error:', error));
-		};
-		fetchMatchDetails();
+		}
 	}, [id]);
-
 	return (
 		<div className=" text-black">
 			<h1>Match details</h1>

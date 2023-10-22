@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { IMatch } from '../interfaces/match.interface';
 import { IoIosCloseCircle } from 'react-icons/io';
+import { fetchMatchesData } from '../services/api';
 
 const MatchesPage = () => {
 	const [matches, setMatches] = useState<IMatch[]>([]);
@@ -8,13 +9,9 @@ const MatchesPage = () => {
 	const [matchesPerPage] = useState(5);
 
 	useEffect(() => {
-		const fetchMatchesData = () => {
-			fetch(`${import.meta.env.VITE_BACKEND_URL}/matches`)
-				.then((response) => response.json())
-				.then((data) => setMatches(data))
-				.catch((error) => console.error('Error:', error));
-		};
-		fetchMatchesData();
+		fetchMatchesData()
+			.then((data) => setMatches(data))
+			.catch((error) => console.error(error));
 	}, []);
 
 	const handleDeleteMatch = (id: number) => {

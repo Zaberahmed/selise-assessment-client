@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ITeam } from '../interfaces/team.interface';
 import { useNavigate } from 'react-router-dom';
 import TeamFlag from '../components/teamflag';
+import { fetchTeamsData } from '../services/api';
 
 const WelcomePage = () => {
 	const navigate = useNavigate();
@@ -9,13 +10,9 @@ const WelcomePage = () => {
 	const [selectedTeams, setSelectedTeams] = useState<ITeam[]>([]);
 
 	useEffect(() => {
-		const fetchTeamsData = () => {
-			fetch(`${import.meta.env.VITE_BACKEND_URL}/teams`)
-				.then((response) => response.json())
-				.then((data) => setTeams(data))
-				.catch((error) => console.error('Error:', error));
-		};
-		fetchTeamsData();
+		fetchTeamsData()
+			.then((data) => setTeams(data))
+			.catch((error) => console.error('Error:', error));
 	}, []);
 
 	const handleTeamSelection = (team: ITeam) => {
