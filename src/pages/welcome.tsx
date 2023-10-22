@@ -28,7 +28,7 @@ const WelcomePage = () => {
 
 	const handleButtonClick = () => {
 		localStorage.setItem('selectedTeams', JSON.stringify(selectedTeams));
-		// navigate('/toss');
+		navigate('/toss');
 	};
 
 	return (

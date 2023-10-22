@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import WelcomePage from './pages/welcome';
+import TossPage from './pages/toss';
 
 function App() {
 	return (
@@ -9,6 +10,10 @@ function App() {
 				<Route
 					path="/"
 					element={<WelcomePage />}
+				/>
+				<Route
+					path="/toss"
+					element={<TossPage />}
 				/>
 			</Routes>
 		</Router>
