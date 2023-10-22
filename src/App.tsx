@@ -4,7 +4,7 @@ import WelcomePage from './pages/welcome';
 import TossPage from './pages/toss';
 import PlayPage from './pages/play';
 import MatchesPage from './pages/matches';
-import Navbar from './components/navbar';
+import MatchDetailsPage from './pages/matchDetails';
 
 function App() {
 	return (
@@ -25,6 +25,10 @@ function App() {
 				<Route
 					path="/matches"
 					element={<MatchesPage />}
+				/>
+				<Route
+					path="/match/:id"
+					element={<MatchDetailsPage />}
 				/>
 			</Routes>
 		</Router>

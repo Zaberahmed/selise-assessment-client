@@ -12,7 +12,7 @@ const PlayPage = () => {
 	const [overs, setOvers] = useState(0);
 	const [matchStarted, setMatchStarted] = useState<boolean>(false);
 	const oversRef = useRef(overs);
-	const [matchWinnerTeam, setMatchWinnerTeam] = useState<ITeam>();
+	const [matchWinnerTeam, setMatchWinnerTeam] = useState<ITeam | null>();
 	const [teamRuns, setTeamRuns] = useState<[number, number]>();
 	const [teamOneScoreboard, setTeamOneScoreboard] = useState<Array<{ overs: number; runs: number }>>([]);
 	const [teamTwoScoreboard, setTeamTwoScoreboard] = useState<Array<{ overs: number; runs: number }>>([]);
@@ -24,8 +24,12 @@ const PlayPage = () => {
 			const teamTworuns = scoreboard?.slice(6).reduce((acc, curr) => acc + curr.runs, 0);
 
 			setTeamRuns([teamOneruns, teamTworuns]);
-
-			const matchWinner = teamOneruns > teamTworuns ? selectedTeams[0] : selectedTeams[1];
+			let matchWinner;
+			if (teamOneruns === teamTworuns) {
+				matchWinner = null;
+			} else {
+				matchWinner = teamOneruns > teamTworuns ? selectedTeams[0] : selectedTeams[1];
+			}
 			setMatchWinnerTeam(matchWinner);
 			setTeamOneScoreboard(scoreboard?.slice(0, 6));
 			setTeamTwoScoreboard(scoreboard?.slice(6));
