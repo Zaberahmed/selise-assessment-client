@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ITeam } from '../interfaces/team.interface';
 import { useNavigate } from 'react-router-dom';
-import TeamFlag from '../components/teamFlag';
+import TeamFlag from '../components/teamflag';
 
 const WelcomePage = () => {
 	const navigate = useNavigate();
@@ -43,6 +43,7 @@ const WelcomePage = () => {
 				{teams && teams.length > 0 ? (
 					teams?.map((team) => (
 						<TeamFlag
+							key={team?.name}
 							team={team}
 							handleTeamSelection={handleTeamSelection}
 							selectedTeams={selectedTeams}

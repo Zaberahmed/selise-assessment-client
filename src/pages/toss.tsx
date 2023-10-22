@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ITeam } from '../interfaces/team.interface';
 import { useNavigate } from 'react-router-dom';
-import TeamFlag from '../components/teamFlag';
+import TeamFlag from '../components/teamflag';
 
 const TossPage = () => {
 	const navigate = useNavigate();
