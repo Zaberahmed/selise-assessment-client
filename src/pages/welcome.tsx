@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ITeam } from '../interfaces/team.interface';
 import { useNavigate } from 'react-router-dom';
+import TeamFlag from '../components/teamFlag';
 
 const WelcomePage = () => {
 	const navigate = useNavigate();
@@ -27,7 +28,7 @@ const WelcomePage = () => {
 
 	const handleButtonClick = () => {
 		localStorage.setItem('selectedTeams', JSON.stringify(selectedTeams));
-		navigate('/toss');
+		// navigate('/toss');
 	};
 
 	return (
@@ -41,15 +42,11 @@ const WelcomePage = () => {
 			<div className=" mt-2 p-2 grid grid-cols-2 gap-5 ">
 				{teams && teams.length > 0 ? (
 					teams?.map((team) => (
-						<div
-							key={team?.name}
-							onClick={() => handleTeamSelection(team)}
-							className={`cursor-pointer border rounded-md p-2 hover:shadow-lg w-[200px] ${selectedTeams.some((item) => item.id === team.id) ? 'bg-blue-200' : ''}`}>
-							<img
-								src={team?.image}
-								className="w-[150px] m-auto h-[100px]"
-							/>
-						</div>
+						<TeamFlag
+							team={team}
+							handleTeamSelection={handleTeamSelection}
+							selectedTeams={selectedTeams}
+						/>
 					))
 				) : (
 					<p>No data available!</p>
