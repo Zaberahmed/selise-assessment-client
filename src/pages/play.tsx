@@ -40,7 +40,18 @@ const PlayPage = () => {
 		const teamsSelected = localStorage.getItem('selectedTeams');
 		const bowlingTeam = localStorage.getItem('bowlingTeam');
 		if (teamsSelected && bowlingTeam) {
-			setSelectedTeams(JSON.parse(teamsSelected));
+			const parsedBowlingTeam = JSON.parse(bowlingTeam);
+			const parsedTeamsSelected = JSON.parse(teamsSelected);
+			console.log('bowl', parsedBowlingTeam);
+			console.log('selected team', parsedTeamsSelected);
+
+			if (parsedBowlingTeam?.name === parsedTeamsSelected[1]?.name) setSelectedTeams(parsedTeamsSelected);
+			else {
+				const swappedTeams = [parsedTeamsSelected[1], parsedTeamsSelected[0]];
+				setSelectedTeams(swappedTeams);
+				console.log('first');
+			}
+
 			setTossWinner(JSON.parse(bowlingTeam));
 		}
 	}, []);

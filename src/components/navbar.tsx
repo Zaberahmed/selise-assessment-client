@@ -1,9 +1,7 @@
-import { Outlet } from 'react-router-dom';
-
-const Navbar = () => {
+const Navbar = ({ children }: any) => {
 	return (
 		<div>
-			<nav className="bg-gray-800 p-4 h-15">
+			<nav className="bg-gray-800 p-4 h-15 max-w-lg">
 				<div className="container mx-auto flex justify-end items-center">
 					<ul className="flex space-x-4">
 						<a href="/">
@@ -16,9 +14,7 @@ const Navbar = () => {
 					</ul>
 				</div>
 			</nav>
-			<div>
-				<Outlet />
-			</div>
+			<div className=" mx-auto text-center">{children}</div>
 		</div>
 	);
 };

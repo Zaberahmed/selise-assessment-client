@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IMatch } from '../interfaces/match.interface';
 import { IoIosCloseCircle } from 'react-icons/io';
 
 const MatchesPage = () => {
 	const [matches, setMatches] = useState<IMatch[]>([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [matchesPerPage] = useState(5);
 
 	useEffect(() => {
 		const fetchMatchesData = () => {
@@ -35,13 +37,20 @@ const MatchesPage = () => {
 		}
 	};
 
+	// Get current matches based on pagination
+	const indexOfLastMatch = currentPage * matchesPerPage;
+	const indexOfFirstMatch = indexOfLastMatch - matchesPerPage;
+	const currentMatches = matches.slice(indexOfFirstMatch, indexOfLastMatch);
+
+	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
 	return (
 		<div className="text-black p-8">
-			{matches && matches.length > 0 ? (
+			{currentMatches && currentMatches.length > 0 ? (
 				<div className="max-w-lg mx-auto bg-white rounded shadow p-4">
 					<h1 className="text-2xl font-bold mb-4">All Matches</h1>
 					<ol className="list-disc pl-4">
-						{matches?.map((match) => (
+						{currentMatches?.map((match) => (
 							<div
 								key={match?.id}
 								className="flex justify-between items-center gap-10 mb-2">
@@ -57,6 +66,23 @@ const MatchesPage = () => {
 							</div>
 						))}
 					</ol>
+					<div>
+						{matches.length > matchesPerPage && (
+							<ul className="pagination">
+								{[...Array(Math.ceil(matches.length / matchesPerPage)).keys()].map((number) => (
+									<li
+										key={number}
+										className="page-item">
+										<button
+											onClick={() => paginate(number + 1)}
+											className="page-link">
+											{number + 1}
+										</button>
+									</li>
+								))}
+							</ul>
+						)}
+					</div>
 				</div>
 			) : (
 				<p className="text-xl">No data available!</p>
